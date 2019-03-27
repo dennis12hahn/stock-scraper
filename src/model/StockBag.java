@@ -23,20 +23,21 @@ public class StockBag {
 			PrintWriter printWriter = new PrintWriter(new FileWriter(filePath, true), true);
 			List<String> keys = new ArrayList<String>(stocks.get(0).getMap().keySet());
 
+			for (int i = 0; i < keys.size(); i++) {
+				printWriter.print(keys.get(i) + ",");
+			}
+			printWriter.print("\n");
+
 			for (int i = 0; i < stocks.size(); i++) {
 				for (int j = 0; j < keys.size(); j++) {
-					if (i == 0) {
-						printWriter.print(keys.get(j) + ",");
+					Data d = stocks.get(i).getMap().get(keys.get(j));
+
+					if (d.getType().equals("double")) {
+						printWriter.print(d.getDblVal() + ",");
 					} else {
-						Data d = stocks.get(i).getMap().get(keys.get(j));
-
-						if (d.getType().equals("double")) {
-							printWriter.print(d.getDblVal() + ",");
-						} else {
-							printWriter.print(d.getStrVal() + ",");
-						}
-
+						printWriter.print(d.getStrVal() + ",");
 					}
+
 				}
 				printWriter.print("\n");
 			}

@@ -29,7 +29,6 @@ public class Retriever extends Thread {
 
 				String symbol = cleanText(rows.get(i).select("td").get(1).selectFirst("a").html());
 				String company = cleanText(rows.get(i).select("td").get(2).selectFirst("a").html());
-				System.out.println("Symbol: " + symbol);
 
 				temp.getMap().put("Symbol", new Data("Symbol", symbol));
 				temp.getMap().put("Company", new Data("Company", company));
@@ -88,8 +87,7 @@ public class Retriever extends Thread {
 						val = rows.get(j).select("td").get(i).select("b").select("span").html();
 					}
 
-					val = cleanText(val);
-					stock.getMap().put(key, new Data(key, val));
+					stock.getMap().put(key, new Data(key, cleanText(val)));
 				}
 			}
 		} catch (IOException e) {
@@ -126,7 +124,9 @@ public class Retriever extends Thread {
 	}
 
 	private static String cleanText(String str) {
-		return str.replaceAll(",", "").replaceAll("amp;", "");
+		str = str.replaceAll(",", "");
+		str = str.replaceAll("amp;", "");
+		return str;
 	}
 
 	public Thread getThread() {

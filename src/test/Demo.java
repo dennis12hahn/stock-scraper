@@ -1,19 +1,14 @@
 package test;
 
-import model.ListGetter;
-import model.Stock;
-import model.StockBag;
+import model.stock.Stock;
+import model.stock.StockBag;
+import model.stock.StockUtils;
 
 public class Demo {
-	public static void main(String[] args) {
-		String url = "https://finviz.com/screener.ashx?v=111&f=idx_dji";
-
-		StockBag djia = ListGetter.getScreen(url);
-
-		for (Stock s : djia.getStocks()) {
-			System.out.println(s);
-		}
-
-	}
+    public static void main(String[] args) {
+        StockBag all = StockUtils.getAll();
+        System.out.println(all.getStocks().size());
+        all.exportToCsv("C:\\Users\\hahnd62\\Desktop\\all.csv");
+    }
 
 }

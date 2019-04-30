@@ -16,8 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.ListGetter;
-import model.StockBag;
+import model.retrievers.ListRetriever;
+import model.stock.StockBag;
+import model.stock.StockUtils;
 
 public class App extends Application {
 
@@ -72,7 +73,7 @@ public class App extends Application {
 			updateLabel("Downloading");
 			new Thread(() -> {
 				toggleButtons(buttons, true);
-				stockBag = ListGetter.getScreen(url);
+				stockBag = StockUtils.getScreen(url);
 				completeTask();
 			}).start();
 		});
@@ -127,14 +128,7 @@ public class App extends Application {
 
 	private static void completeTask() {
 		toggleButtons(buttons, false);
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				label.setVisible(false);
-			}
-
-		});
+		Platform.runLater(() -> label.setVisible(false));
 	}
 
 	private static void toggleButtons(HBox hbox, boolean bool) {
@@ -148,13 +142,13 @@ public class App extends Application {
 		Task<Void> dynamicText = new Task<Void>() {
 
 			@Override
-			protected Void call() throws Exception {
-				String dots = new String();
+			protected Void call() {
+				StringBuilder dots = new StringBuilder();
 				while (true) {
 					if (dots.length() == 3) {
-						dots = "";
+						dots = new StringBuilder();
 					} else {
-						dots += ".";
+						dots.append(".");
 					}
 					updateMessage(str + dots);
 					try {

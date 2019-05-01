@@ -7,6 +7,8 @@ import org.jsoup.Connection;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static model.MyUtils.cleanText;
 
@@ -26,6 +28,7 @@ public class ListRetriever implements Runnable {
         Elements rows;
         try {
             rows = page.get().select(cssSelector).select("tr");
+
             for (int i = 1; i < rows.size(); i++) {
                 Stock temp = new Stock();
 

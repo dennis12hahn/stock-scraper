@@ -16,7 +16,7 @@ public class StockBag {
 
     public void exportToCsv(String filePath) {
         try {
-            PrintWriter printWriter = new PrintWriter(new FileWriter(filePath, true), true);
+            PrintWriter printWriter = new PrintWriter(new FileWriter(filePath, false), true);
             List<String> keys = new ArrayList<>(stocks.get(0).getMap().keySet());
 
             for (String key : keys) {

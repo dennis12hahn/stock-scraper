@@ -1,6 +1,5 @@
 package view;
 
-import java.io.File;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,9 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.retrievers.ListRetriever;
 import model.stock.StockBag;
 import model.stock.StockUtils;
+
+import java.io.File;
 
 public class App extends Application {
 
